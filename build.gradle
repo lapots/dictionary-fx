@@ -13,4 +13,5 @@ buildscript {
 jfx {
     mainClass = 'com.lapots.breed.dictionary.fx.Main'
     vendor = 'lapots'
+    jfxMainAppJarName = 'dictionary-fx.jar'
 }

@@ -2,6 +2,7 @@ package com.lapots.breed.dictionary.fx;
 
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 
 import javafx.scene.*;
@@ -26,6 +27,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResourceAsStream("/ui/tutorial4.fxml"));
+
+
+        Scene scene = new Scene(root, 300, 275);
+        primaryStage.setTitle("FXML Welcome");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     private void tutorial5(Stage primaryStage) {
@@ -118,7 +127,7 @@ public class Main extends Application {
         grid.add(hbBtn, 1, 4);
 
         final Text actionTarget = new Text();
-        actionTarget.setId("action-target");
+        actionTarget.setId("actiontarget");
         grid.add(actionTarget, 1, 6);
         btn.setOnAction(event -> {
             actionTarget.setText("Sign in button pressed");
