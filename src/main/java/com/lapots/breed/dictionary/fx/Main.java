@@ -1,7 +1,11 @@
 package com.lapots.breed.dictionary.fx;
 
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 
@@ -15,6 +19,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.random;
@@ -27,6 +32,24 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        VBox vBox = new VBox();
+        Button button = new Button("Press Me");
+        Button unsubscribeButton = new Button("Unsubscribe");
+        Label countLabel = new Label("0");
+
+        Disposable disposable = JavaFxObservable.actionEventsOf(button)
+                .map(ae -> 1)
+                .scan(0, (x, y) -> x + y)
+                .subscribe(clickCount -> countLabel.setText(clickCount.toString()));
+        unsubscribeButton.setOnAction(e -> disposable.dispose());
+
+        vBox.getChildren().addAll(button, unsubscribeButton, countLabel);
+
+        primaryStage.setScene(new Scene(vBox));
+        primaryStage.show();
+    }
+
+    private void tutorial4(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/ui/tutorial4.fxml"));
 
