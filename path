@@ -1,0 +1,25 @@
+package some-package.release_2.
+
+databaseChangeLog (logicalFilePath: 'some-price//.groovy') {
+
+    changeSet (id: '2017-12-22-00-22-49', author: ' <>') {
+        comment ('Maps  type of use to  question')
+
+        insert(schemaName: dbAppsSchema, tableName: 'pp_product_question_map') {
+            column(name: 'pp_question_id', value: '')
+            column(name: 'pm_license_product_uid', value: '')
+            column(name: 'is_required_flag', value: 'false')
+            column(name: 'record_version', value: '1')
+            column(name: 'created_by_user_system', value: 'system')
+            column(name: 'updated_by_user', value: 'system')
+        }
+
+
+        rollback {
+            delete(schemaName: dbAppsSchema, tableName: 'pp_product_question_map') {
+                where("pp_question_id = '' AND pm_license_product_uid=''")
+            }
+        }
+    }
+
+}

@@ -1,11 +1,9 @@
 package com.lapots.breed.dictionary.fx;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import javafx.animation.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 
@@ -32,6 +30,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResourceAsStream("/templates/application.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void reactive(Stage primaryStage) {
         VBox vBox = new VBox();
         Button button = new Button("Press Me");
         Button unsubscribeButton = new Button("Unsubscribe");

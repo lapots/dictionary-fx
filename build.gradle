@@ -1,5 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'javafx-gradle-plugin'
+apply plugin: 'application'
+
+// for debug for now
+mainClassName = 'com.lapots.breed.dictionary.fx.Main'
 
 buildscript {
     dependencies {
@@ -17,10 +21,15 @@ repositories {
 dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.7'
     compile 'io.reactivex.rxjava2:rxjavafx:2.2.2'
+
+    // for script generation
+    compile 'org.projectlombok:lombok:1.16.18'
+    compile 'org.freemarker:freemarker:2.3.27-incubating'
 }
 
 jfx {
     mainClass = 'com.lapots.breed.dictionary.fx.Main'
     vendor = 'lapots'
     jfxMainAppJarName = 'dictionary-fx.jar'
+    runJavaParameter = '-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005'
 }
