@@ -1,3 +1,16 @@
-apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'javafx-gradle-plugin'
 
-mainClassName='com.lapots.breed.dictionary.fx.Main'
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+jfx {
+    mainClass = 'com.lapots.breed.dictionary.fx.Main'
+    vendor = 'lapots'
+}

@@ -3,6 +3,7 @@ package com.lapots.breed.dictionary.fx;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.*;
+
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
