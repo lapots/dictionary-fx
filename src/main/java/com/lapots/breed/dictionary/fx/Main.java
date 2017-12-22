@@ -29,13 +29,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResourceAsStream("/templates/application.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+    public void start(Stage primaryStage) throws Exception { }
 
     private void reactive(Stage primaryStage) {
         VBox vBox = new VBox();
