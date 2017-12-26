@@ -42,7 +42,7 @@ public class Tutorials {
 
     private void tutorial4(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResourceAsStream("/ui/tutorial4.fxml"));
+        Parent root = loader.load(getClass().getResourceAsStream("/tutorials/ui/tutorial4.fxml"));
 
 
         Scene scene = new Scene(root, 300, 275);
@@ -148,7 +148,7 @@ public class Tutorials {
         });
 
         Scene scene = new Scene(grid, 300, 275);
-        scene.getStylesheets().add(Main.class.getResource("/login.css").toExternalForm());
+        scene.getStylesheets().add(Main.class.getResource("/tutorials/login.css").toExternalForm());
 
         primaryStage.setScene(scene);
 

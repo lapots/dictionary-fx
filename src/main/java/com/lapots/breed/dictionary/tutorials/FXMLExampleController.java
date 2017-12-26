@@ -1,4 +1,4 @@
-package com.lapots.breed.dictionary.fx;
+package com.lapots.breed.dictionary.tutorials;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
