@@ -2,16 +2,14 @@ package com.lapots.breed.dictionary.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "articles")
 @Data
 public class Article {
     @Id
+    @GeneratedValue
     private String id;
     @Column(nullable = false)
     private String article;

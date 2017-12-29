@@ -15,7 +15,6 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +62,6 @@ public class DictionaryFxController implements Initializable {
 
             supportedLanguages.forEach(lang -> {
                 Language language = new Language();
-                language.setId(lang.toUpperCase() + "_ID"); // TODO: move to generator
                 language.setName(lang);
                 session.save(language);
             });
