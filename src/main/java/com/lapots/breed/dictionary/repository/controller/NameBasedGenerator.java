@@ -1,4 +1,4 @@
-package com.lapots.breed.dictionary.domain.support;
+package com.lapots.breed.dictionary.repository.controller;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

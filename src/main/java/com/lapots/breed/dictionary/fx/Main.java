@@ -1,5 +1,7 @@
 package com.lapots.breed.dictionary.fx;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import javafx.application.Application;
@@ -10,17 +12,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Main extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = prepareScene();
+        Injector injector = Guice.createInjector(new ApplicationModule());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dictionary.fxml"));
+        loader.setControllerFactory(injector::getInstance);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Dictionary");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -43,15 +48,5 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(vBox));
         primaryStage.show();
-    }
-
-    private Scene prepareScene() {
-        FXMLLoader loader = new FXMLLoader();
-        try {
-            Parent root = loader.load(getClass().getResourceAsStream("/dictionary.fxml"));
-            return new Scene(root);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.lapots.breed.dictionary.fx;
 
 import com.lapots.breed.dictionary.domain.Language;
+import com.lapots.breed.dictionary.repository.QueryTemplate;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,25 +10,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
+import javax.inject.Inject;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DictionaryFxController implements Initializable {
+
+    @Inject
+    private QueryTemplate queryTemplate;
+
     @FXML
     private ComboBox<Language> language_list;
 
     @FXML
     private Label status_label;
-
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     @SuppressWarnings("unchecked")
     @Override
@@ -50,31 +50,23 @@ public class DictionaryFxController implements Initializable {
             }
         });
 
-
         // bind rx
         JavaFxObservable.valuesOf(language_list.valueProperty())
                 .subscribe(v -> status_label.setText(v.getName()), e -> System.out.println("Error occurred: " + e));
 
         // generate data
-        List<String> supportedLanguages = Arrays.asList("English", "French", "German", "Hebrew");
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+        List<Language> langs = Stream.of("English", "French", "German", "Hebrew")
+                .map(langLabel -> {
+                    Language lang = new Language();
+                    lang.setName(langLabel);
+                    return lang;
+                }).collect(Collectors.toList());
 
-            supportedLanguages.forEach(lang -> {
-                Language language = new Language();
-                language.setName(lang);
-                session.save(language);
-            });
+        queryTemplate.insert(langs);
 
-            tx.commit();
-        }
-
-        try (Session session = sessionFactory.openSession()) {
-            List<Language> languages = session.createQuery("from Language").list();
-            language_list.getItems().setAll(languages);
-        }
+        language_list
+                .getItems()
+                .setAll(queryTemplate.select("from Language"));
         language_list.getSelectionModel().selectFirst();
-        sessionFactory.close();
-        StandardServiceRegistryBuilder.destroy(sessionFactory.getSessionFactoryOptions().getServiceRegistry());
     }
 }

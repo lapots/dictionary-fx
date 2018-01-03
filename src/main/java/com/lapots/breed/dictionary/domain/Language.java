@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Language {
     @Id
     @GenericGenerator(name = "name_based_id",
-            strategy = "com.lapots.breed.dictionary.domain.support.NameBasedGenerator")
+            strategy = "com.lapots.breed.dictionary.repository.controller.NameBasedGenerator")
     @GeneratedValue(generator = "name_based_id")
     private String id;
     @Column(nullable = false)
